@@ -14,6 +14,8 @@ from learning.training.predict_score import *
 from learning.training.predict_pose_refine import *
 import yaml
 
+MIN_N_VIEWS = 40
+IN_PLANE_STEP = 60
 
 class FoundationPose:
   def __init__(self, model_pts, model_normals, symmetry_tfs=None, mesh=None, scorer:ScorePredictor=None, refiner:PoseRefinePredictor=None, glctx=None, debug=0, debug_dir='/home/bowen/debug/novel_pose_debug/'):
@@ -24,7 +26,7 @@ class FoundationPose:
     os.makedirs(debug_dir, exist_ok=True)
 
     self.reset_object(model_pts, model_normals, symmetry_tfs=symmetry_tfs, mesh=mesh)
-    self.make_rotation_grid(min_n_views=40, inplane_step=60)
+    self.make_rotation_grid(min_n_views=MIN_N_VIEWS, inplane_step=IN_PLANE_STEP)
 
     self.glctx = glctx
 
@@ -103,7 +105,7 @@ class FoundationPose:
 
 
 
-  def make_rotation_grid(self, min_n_views=40, inplane_step=60):
+  def make_rotation_grid(self, min_n_views=MIN_N_VIEWS, inplane_step=IN_PLANE_STEP):
     cam_in_obs = sample_views_icosphere(n_views=min_n_views)
     logging.info(f'cam_in_obs:{cam_in_obs.shape}')
     rot_grid = []

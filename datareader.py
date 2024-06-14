@@ -151,6 +151,14 @@ class YcbineoatReader:
     mesh = trimesh.load(f'{YCB_VIDEO_DIR}/models/{ob_name}/textured_simple.obj')
     return mesh
 
+  def get_ar_tag_pose(self, i):
+    ar_tag_pose_file = self.color_files[i].replace('rgb', 'ar_tag_pose').replace('.png', '')
+    ar_tag_pose_file = ar_tag_pose_file + '_ar_tag_pose.npy'
+    if not os.path.exists(ar_tag_pose_file):
+      raise RuntimeError("No file found")
+    return np.load(ar_tag_pose_file)
+
+
 
 class BopBaseReader:
   def __init__(self, base_dir, zfar=np.inf, resize=1):

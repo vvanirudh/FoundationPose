@@ -156,3 +156,8 @@ data/
 logs/
 !BundleTrack/XMem/inference/data
 run_used.yml
+
+scripts/out/*
+debug/*
+horizontal_debug/*
+into_the_camera_debug/*
